@@ -73,7 +73,7 @@ if not filtered_df.empty:
              f"**Percentile Ranks of Predicted Metrics:**  \n"
              f"PER Percentile Rank: {filtered_df['PER_Percentile_Rank'].iloc[0]}  |  "
              f"BPM Percentile Rank: {filtered_df['BPM_Percentile_Rank'].iloc[0]}   |    "
-             f"WS/40 Percentile Rank: {filtered_df['WS40_Percentile_Rank'].iloc[0]}"
+             f"WS/40 Percentile Rank: {filtered_df['WS40_Percentile_Rank'].iloc[0]}  \n"
              f"\n"
              f"**NIL Player Value:**  \n"
              f"Percent Worth of Team Budget: {merged_df['NIL%'][merged_df['Player'] == selected_player].iloc[0]}")
