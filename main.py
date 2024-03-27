@@ -74,18 +74,19 @@ if not filtered_df.empty:
              f"PER Percentile Rank: {filtered_df['PER_Percentile_Rank'].iloc[0]}  |  "
              f"BPM Percentile Rank: {filtered_df['BPM_Percentile_Rank'].iloc[0]}   |    "
              f"WS/40 Percentile Rank: {filtered_df['WS40_Percentile_Rank'].iloc[0]}")
+
+    # Retrieve the 'NIL%' value for the selected player
+    nil_percentage = merged_df.loc[merged_df['Player'] == selected_player, 'NIL%'].iloc[0]
+
+    # Limit the decimal output to two decimal places
+    rounded_nil_percentage = round(nil_percentage, 2)
+
+    # Display the NIL% value with limited decimal places
+    st.markdown(f"**NIL Player Value:**  \n"
+                f"Percent Worth of Team Budget: {rounded_nil_percentage}%")
+
 else:
     st.write("No data available for the selected player.")
-    
-# Retrieve the 'NIL%' value for the selected player
-nil_percentage = merged_df.loc[merged_df['Player'] == selected_player, 'NIL%'].iloc[0]
-
-# Limit the decimal output to two decimal places
-rounded_nil_percentage = round(nil_percentage, 2)
-
-# Display the NIL% value with limited decimal places
-st.markdown(f"**NIL Player Value:**  \n"
-            f"Percent Worth of Team Budget: {rounded_nil_percentage}%")
     
 st.markdown('<sub>Percentile ranks are compared to Big 12 players only</sub>', unsafe_allow_html=True)
 
