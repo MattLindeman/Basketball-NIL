@@ -3,6 +3,7 @@ import pandas as pd
 
 prediction_df = pd.read_csv('2025Predictions.csv')
 other_data_df = pd.read_csv('maindata.csv')
+nil_df = pd.read_csv('NIL_Pred.csv')
 
 st.title('BYU Basketball NIL Project')
 
@@ -42,6 +43,13 @@ else:
 
 st.markdown('<h2>2025 Player Predictions<h2>', unsafe_allow_html=True)
 
+# Merge the prediction_df with the Weighted_IWP column from nil_df
+merged_df = prediction_df.merge(nil_df[['School', 'Player', 'Weighted_IWP']], on=['School', 'Player'], how='left')
+
+# Rename the Weighted_IWP column to 'NIL%' if it exists
+if 'Weighted_IWP' in merged_df.columns:
+    merged_df.rename(columns={'Weighted_IWP': 'NIL%'}, inplace=True)
+
 # Filter options
 players = sorted(prediction_df['Player'].unique())
 selected_player = st.selectbox('Select Player', [''] + players)
@@ -65,7 +73,10 @@ if not filtered_df.empty:
              f"**Percentile Ranks of Predicted Metrics:**  \n"
              f"PER Percentile Rank: {filtered_df['PER_Percentile_Rank'].iloc[0]}  |  "
              f"BPM Percentile Rank: {filtered_df['BPM_Percentile_Rank'].iloc[0]}   |    "
-             f"WS/40 Percentile Rank: {filtered_df['WS40_Percentile_Rank'].iloc[0]}")
+             f"WS/40 Percentile Rank: {filtered_df['WS40_Percentile_Rank'].iloc[0]}"
+             f"\n"
+             f"**NIL Player Value:**  \n"
+             f"Percent Worth of Team Budget: {merged_df['NIL%'][merged_df['Player'] == selected_player].iloc[0]}")
 else:
     st.write("No data available for the selected player.")
     
@@ -74,11 +85,11 @@ st.markdown('<sub>Percentile ranks are compared to Big 12 players only</sub>', u
 st.markdown('<h2>2025 Player Predictions (by team)<h2>', unsafe_allow_html=True)
 
 # Filter options
-teams = sorted(prediction_df['School'].unique())
+teams = sorted(merged_df['School'].unique())
 selected_team = st.selectbox('Select Team', teams, index=teams.index('Brigham Young'))
 
 # Filter DataFrame based on selected team
-filtered_df_team = prediction_df[prediction_df['School'] == selected_team]
+filtered_df_team = merged_df[merged_df['School'] == selected_team]
 
 # Display the filtered DataFrame
 st.write(filtered_df_team.reset_index(drop=True))
