@@ -78,7 +78,7 @@ else:
     st.write("No data available for the selected player.")
     
 # Retrieve the 'NIL%' value for the selected player
-nil_percentage = merged_df['NIL%'][merged_df['Player'] == selected_player].iloc[0]
+nil_percentage = merged_df.loc[merged_df['Player'] == selected_player, 'NIL%'].iloc[0]
 
 # Limit the decimal output to two decimal places
 rounded_nil_percentage = round(nil_percentage, 2)
