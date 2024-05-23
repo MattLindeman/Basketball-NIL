@@ -5,8 +5,13 @@ This project is aimed around helping the BYU Basketball coaching staff determine
 I created a streamlit dashboard that makes it easy to look up players and their projected metrics/NIL value: [CBB NIL](https://byubasketballnil.streamlit.app)
 
 Files:
+
 2025Predictions.csv contains the predicted metrics data
+
 NIL_Pred.csv contains the predicted NIL value data
+
 maindata.csv contains the player data from the sports reference website
+
 main.py and requirements.txt are used to create the streamlit app
+
 main.ipynb contains the code for how I manipulated the data and built the models
